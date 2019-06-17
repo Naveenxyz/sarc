@@ -6,7 +6,7 @@ mongoose.connect(`mongodb://${server}/${database}`, {
     useNewUrlParser: true
 });
 let posts_schema = new mongoose.Schema({
-	postedBy: {
+	id: {
 		type: 'String'
 	},
 	stars: {
@@ -21,7 +21,7 @@ let posts_schema = new mongoose.Schema({
 	description: {
 		type: 'String'
 	},
-	heading: {
+	title: {
 		type: 'String'
 	},
 	image: {
@@ -30,7 +30,7 @@ let posts_schema = new mongoose.Schema({
 	bodyText: {
 		type: 'String'
 	},
-	subForms: {
+	tags: {
 		type: [
 			'String'
 		]

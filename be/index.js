@@ -13,9 +13,12 @@ app.use(
         extended: false
     })
 );
-app.use("/api/posts",require("./api/posts/post_api"))
+app.use("/api/home",require("./api/posts/post_api"))
 app.get("/", (req, res) => {
     res.sendFile(__dirname + "/index.html");
+})
+app.get("/:id2/:id1",(req,res)=>{
+    res.send(req.params.id2+req.params.id1)
 })
 const PORT = process.env.PORT || 8080;
 server.listen(PORT, "0.0.0.0", () =>

@@ -15,7 +15,10 @@
     "mongoose": "^5.5.0"
   },
   "devDependencies": {
+    "cors": "^2.8.5",
     "express": "^4.17.1",
+    "mongoose-timestamp": "^0.6.0",
+    "moongoose": "0.0.5",
     "nodemon": "^1.19.1"
   }
 }

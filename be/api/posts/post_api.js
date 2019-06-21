@@ -5,7 +5,7 @@ let mongoose = require('mongoose')
 const timestamp = require('mongoose-timestamp')
 const server = '127.0.0.1:27017'
 const database = 'sarc'
-mongoose.connect(`mongodb://${server}/${database}`, {
+mongoose.connect("mongodb+srv://naveen:pass123@sarcdb-6vxmj.mongodb.net/test?retryWrites=true&w=majority", {
     useNewUrlParser: true
 });
 const postmodel = require('../../models/posts/post_model')
@@ -67,24 +67,35 @@ router.get('/posts/:id', (req, res) => {
         })
 })
 router.get('/categories',(req,res)=>{
-    console.log('requested catogeries')
+    // console.log('requested catogeries')
     connection.db.collection("tags", function(err, collection){
                 collection.find().toArray(function(err, data){
-                    console.log(data);
+                    // console.log(data);
                     res.json(data)
                 })
                 
             });
 })
 router.get('/categories/:cat',(req,res)=>{
-    console.log('requested '+req.params.cat)
+    console.log('requested '+req.params.cat+" via get")
     postmodel.find({tags:{"$in":[req.params.cat]}})
     .then(doc =>{
-        console.log(doc)
+        // console.log(doc)
         res.json(doc)
     })
     .catch(err => {
         res.status(500).json(err)
     })
 })
+router.get('/search/:key', function(req,res){
+    console.log(req.params.key)
+    var regex = new RegExp(req.params.key, 'i');  // 'i' makes it case insensitive
+    postmodel.find({$text: {$search: req.params.key}})
+    // .skip(20)
+    // .limit(10)
+    .exec(function(err, docs) {
+        console.log(docs)
+        res.json(docs)
+    });
+});
 module.exports = router;

@@ -2,7 +2,7 @@ let mongoose = require('mongoose')
 const timestamp = require('mongoose-timestamp')
 const server = '127.0.0.1:27017'
 const database = 'sarc'
-mongoose.connect(`mongodb://${server}/${database}`, {
+mongoose.connect("mongodb+srv://naveen:pass123@sarcdb-6vxmj.mongodb.net/test?retryWrites=true&w=majority", {
     useNewUrlParser: true
 });
 let posts_schema = new mongoose.Schema({
@@ -42,4 +42,5 @@ let posts_schema = new mongoose.Schema({
     }
 })
 posts_schema.plugin(timestamp)
+posts_schema.index({'$**': 'text'});
 module.exports = mongoose.model('posts', posts_schema)

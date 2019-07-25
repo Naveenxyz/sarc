@@ -3,23 +3,22 @@
         <div class="navbar_main">
             <img src="../assets/logo.svg" @click="$router.push('/home')" style="height: 6vh;width: auto;margin-left: 2vw;cursor: pointer;" alt="">
             <div style="margin-left: auto;margin-right: 2vw;align-self: center;">
-                <img src="../assets/search.svg" style="width: 18px; height: 18px;transform: translate(2.5vw, 2px);" alt="">
-                <input class="search_box" style="text-align: left; padding-left: calc(1vw + 45px)" type="text" placeholder="Search" ref="search_bar" v-model="searchInput">
-                <button class="btn-outline">SignUp</button>
+                <img v-if="this.showNavItem" src="../assets/search.svg" style="width: 18px; height: 18px;transform: translate(2.5vw, 2px);" alt="">
+                <input v-if="this.showNavItem" class="search_box" style="text-align: left; padding-left: calc(1vw + 45px)" type="text" placeholder="Search" ref="search_bar" v-model="search_input">
+                <button v-if="this.showNavItem" @click="search()" class="btn-outline">Search</button>
+                <button @click="$router.push('/signup')" class="btn-outline">SignUp</button>
             </div>
         </div>
         <div ref="navbar_secondary" class="navbar_secondary">
             <div class="ns_p_cont">
                 <div style="width: 2vw;"></div>
-                <p @click="$router.push('/home')" ref="home">Home</p>
-                <p @click="$router.push('/news')" ref="news">News</p>
-                <p @click="$router.push('/ideahub')" ref="ih">IdeaHub</p>
-                <p @click="$router.push('/bucket')" ref="bucket">My Bucket</p>
-                <p @click="$router.push('/contact')" ref="contact">Contact Us</p>
+                <div v-for="(s, i) in this.navItems" :key="i" class="ns_i_cont">
+                    <p class="" @click="$router.push(s.route)" :ref="s.ref">{{s.name}}</p>
+                </div>
                 <img src="../assets/sort.svg" style="width: 20px; height: 20px;align-self: center;margin-left: auto;margin-right: 0px;cursor: pointer;" alt="">
-                <p style="padding-left: 10px;margin-left:0px;">Sort</p>
-                <img src="../assets/filter.svg" style="width: 20px; height: 20px;align-self: center;cursor: pointer;" alt="">
-                <p style="padding-left: 10px;margin-left:0px;margin-right: 40px;">filter</p>
+                <p style="padding-left: 10px;margin-left:0px;padding-right: 80px;">Sort</p>
+                <!-- <img src="../assets/filter.svg" style="width: 20px; height: 20px;align-self: center;cursor: pointer;" alt="">
+                <p style="padding-left: 10px;margin-left:0px;margin-right: 40px;">filter</p> -->
             </div>
         </div>
     </div>
@@ -62,7 +61,14 @@
         align-content: center;
         z-index: 5;
     }
-    .ns_p_cont > p{
+    .ns_i_cont {
+        display: flex;
+        flex-direction: row;
+        height: auto;
+        align-content: center;
+        z-index: 5;
+    }
+    .ns_i_cont > p{
         padding-left: 40px;
         padding-right: 40px;
         font-weight: 900;
@@ -139,11 +145,45 @@ export default {
     name: 'navbar',
     data () {
         return {
-            searchInput: ''
+            search_input: '',
+            showNavItem: true,
+            navItems: [
+                {
+                    name: 'Home',
+                    ref: 'home',
+                    route: 'home'
+                },
+                {
+                    name: 'News',
+                    ref: 'news',
+                    route: 'news'
+                },
+                {
+                    name: 'IdeaHub',
+                    ref: 'idea_hub',
+                    route: 'idea_hub'
+                },
+                {
+                    name: ' MyBucket',
+                    ref: 'bucket',
+                    route: 'bucket'
+                },
+                {
+                    name: 'Contact Us',
+                    ref: 'contact',
+                    route: 'contact'
+                },
+                {
+                    name: 'MentorHub',
+                    ref: 'mentor_hub',
+                    route: 'mentor_hub'
+                },
+            ]
         }
     },
     mounted: function () {
-        this.checkRouteandBgColor()
+        this.checkRouteandBgColor(this.$route.name)
+        this.checkAdminRoute()
         this.logger()
     },
     methods: {
@@ -151,45 +191,27 @@ export default {
             EventBus.$emit('sendNavbarHeight', this.$refs.navbar_root.clientHeight)
             console.log(this.$refs.navbar_root.clientHeight)
         },
-        checkRouteandBgColor () {
-            if (window.location.pathname == '/home' || window.location.pathname == 'home' || window.location.pathname == '/' || window.location.pathname == '') {
-                this.$refs.home.classList.add('bg_focus')
-                this.$refs.contact.classList.remove('bg_focus')
-                this.$refs.ih.classList.remove('bg_focus')
-                this.$refs.bucket.classList.remove('bg_focus')
-                this.$refs.news.classList.remove('bg_focus')
-            } else {
-                if (window.location.pathname == '/contact' || window.location.pathname == 'contact') {
-                    this.$refs.home.classList.remove('bg_focus')
-                    this.$refs.contact.classList.add('bg_focus')
-                    this.$refs.ih.classList.remove('bg_focus')
-                    this.$refs.bucket.classList.remove('bg_focus')
-                    this.$refs.news.classList.remove('bg_focus')
-                } else {
-                    if (window.location.pathname == '/bucket' || window.location.pathname == 'bucket') {
-                        this.$refs.home.classList.remove('bg_focus')
-                        this.$refs.contact.classList.remove('bg_focus')
-                        this.$refs.ih.classList.remove('bg_focus')
-                        this.$refs.bucket.classList.add('bg_focus')
-                        this.$refs.news.classList.remove('bg_focus')
-                    } else {
-                        if (window.location.pathname == '/news' || window.location.pathname == 'news') {
-                            this.$refs.home.classList.remove('bg_focus')
-                            this.$refs.contact.classList.remove('bg_focus')
-                            this.$refs.ih.classList.remove('bg_focus')
-                            this.$refs.bucket.classList.remove('bg_focus')
-                            this.$refs.news.classList.add('bg_focus')
-                        } else {
-                            if (window.location.pathname == '/ideahub' || window.location.pathname == 'ideahub'){
-                                this.$refs.home.classList.remove('bg_focus')
-                                this.$refs.contact.classList.remove('bg_focus')
-                                this.$refs.ih.classList.add('bg_focus')
-                                this.$refs.bucket.classList.remove('bg_focus')
-                                this.$refs.news.classList.remove('bg_focus')
-                            } else {
-                                this.$refs.navbar_secondary.style.display = 'none'
-                            }
-                        }
+        search() {
+            var vm = this
+            console.log(vm.search_input)
+            this.$http.get('http://staghorn.net:8080/api/home/search/' + vm.search_input).then(resp => {
+                console.log(resp)
+                EventBus.$emit('search_results', resp)
+            })
+        },
+        checkAdminRoute() {
+            if(window.location.pathname == '/admin' || window.location.pathname == 'admin' || window.location.pathname == '/ideahub' || window.location.pathname == 'ideahub') {
+                this.showNavItem = false
+            }
+        },
+        checkRouteandBgColor (r) {
+            for (let i = 0; i < this.navItems .length; i++) {
+                var x = this.navItems[i].ref
+                if(this.navItems[i].ref == r) {
+                    this.$refs[x][0].classList.add('bg_focus')
+                } else{
+                    if (this.$refs[x][0].classList.contains('bg_focus')) {
+                        this.$refs[x][0].classList.remove('bg_focus')
                     }
                 }
             }

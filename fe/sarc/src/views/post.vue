@@ -101,7 +101,7 @@ export default {
         getData () {
            console.log(this.postID)
            var vm = this
-           this.$http.get('http://192.168.0.118:8080/api/home/posts/' + vm.postID).then( res => {
+           this.$http.get('http://staghorn.net:8080/api/home/posts/' + vm.postID).then( res => {
                console.log(res.body[0])
                 vm.title = res.body[0].title
                 vm.description = res.body[0].description
@@ -195,7 +195,7 @@ export default {
         padding: 15px;
         padding-right: 40px;
         padding-left: 40px;
-        text-align: left;
+        text-align: left; 
         border-radius: 0px;
         resize: none;
         text-decoration: none;

@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "saarc backend",
   "main": "index.js",
-  "engines": { 
-    "node": "8.10.0" 
+  "engines": {
+    "node": "8.10.0"
   },
   "scripts": {
     "start": "node index",

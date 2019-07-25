@@ -22,7 +22,7 @@ npm run dev
 npm run build
 ```
 
-[Backend deployed on heroku, click to acess](https://sarc-bphc-backend.herokuapp.com/)
+[Backend deployed on heroku, click to acess](http://staghorn.net:8080/)
 
 to make chanes after being added as a contributor 
 ```bash

@@ -101,7 +101,7 @@ export default {
         getData () {
            console.log(this.postID)
            var vm = this
-           this.$http.get('http://staghorn.net:8080/api/home/posts/' + vm.postID).then( res => {
+           this.$http.get('https://sarc-bphc-backend.herokuapp.com/api/home/posts/' + vm.postID).then( res => {
                console.log(res.body[0])
                 vm.title = res.body[0].title
                 vm.description = res.body[0].description

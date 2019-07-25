@@ -4,7 +4,7 @@
             <img src="../assets/logo.svg" @click="$router.push('/home')" style="height: 6vh;width: auto;margin-left: 2vw;cursor: pointer;" alt="">
             <div style="margin-left: auto;margin-right: 2vw;align-self: center;">
                 <img v-if="this.showNavItem" src="../assets/search.svg" style="width: 18px; height: 18px;transform: translate(2.5vw, 2px);" alt="">
-                <input v-if="this.showNavItem" class="search_box" style="text-align: left; padding-left: calc(1vw + 45px)" type="text" placeholder="Search" ref="search_bar" v-model="search_input">
+                <input v-if="this.showNavItem" class="search_box" @keyup.enter="search()" style="text-align: left; padding-left: calc(1vw + 45px)" type="text" placeholder="Search" ref="search_bar" v-model="search_input">
                 <button v-if="this.showNavItem" @click="search()" class="btn-outline">Search</button>
                 <button @click="$router.push('/signup')" class="btn-outline">SignUp</button>
             </div>
@@ -75,7 +75,6 @@
         font-size: 16px;
         transition: 0.5s;
         color: #868686;
-        height: 100%;
         margin-top: 0px;
         margin-bottom: 0px;
         padding-top: 14px;
@@ -83,8 +82,8 @@
         cursor: pointer;
     }
     .bg_focus {
-        font-size: 18px !important;
-        transition: 0.5s;
+        /* font-size: 18px !important;
+        transition: 0.5s; */
         color: #000000 !important;
         background: #fff;
     }
@@ -149,11 +148,6 @@ export default {
             showNavItem: true,
             navItems: [
                 {
-                    name: 'Home',
-                    ref: 'home',
-                    route: 'home'
-                },
-                {
                     name: 'News',
                     ref: 'news',
                     route: 'news'
@@ -194,7 +188,7 @@ export default {
         search() {
             var vm = this
             console.log(vm.search_input)
-            this.$http.get('http://staghorn.net:8080/api/home/search/' + vm.search_input).then(resp => {
+            this.$http.get('https://sarc-bphc-backend.herokuapp.com/api/home/search/' + vm.search_input).then(resp => {
                 console.log(resp)
                 EventBus.$emit('search_results', resp)
             })

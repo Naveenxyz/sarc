@@ -74,7 +74,7 @@ export default {
                             password: vm.password,
                             role: 'user'
                         }
-                        vm.$http.post('http://staghorn.net:8080/api/auth/signup', post_json).then(resp => {
+                        vm.$http.post('https://sarc-bphc-backend.herokuapp.com/api/auth/signup', post_json).then(resp => {
                             console.log(resp)
                         })
                     }

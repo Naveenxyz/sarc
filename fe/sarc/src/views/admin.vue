@@ -273,7 +273,7 @@ export default {
                 var newCat = {
                     new : vm.new_category
                 }
-                this.$http.post('http://staghorn.net:8080/api/home/new_categorie', newCat).then(resp => {
+                this.$http.post('https://sarc-bphc-backend.herokuapp.com/api/home/new_categorie', newCat).then(resp => {
                     console.log(resp)
                     vm.new_category = ''
                     alert('New Category Added')
@@ -304,7 +304,7 @@ export default {
                         description: vm.post_tagline,
                         image: rsp
                     }
-                    this.$http.post('http://staghorn.net:8080/api/home/posts', data_json).then(resp => {
+                    this.$http.post('https://sarc-bphc-backend.herokuapp.com/api/home/posts', data_json).then(resp => {
                         console.log(resp)
                         alert('New post Added')
                         vm.loading = false

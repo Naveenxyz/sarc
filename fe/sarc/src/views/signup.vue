@@ -1,7 +1,7 @@
 <template style="overflow: hidden;">
     <div style="display: flex; flex-direction: row;height: 100vh; width: 100vw;overflow: hidden;" class="page_body">
-        <div style="flex: 1; background: #f1f1f1;display: flex;justify-content: center;">
-            <img @click="$router.push('/home')" src="../assets/logo.svg" style="width: 50%;height: auto;align-self: center;" alt="">
+        <div @click="$router.push('/home')" style="flex: 1; background: #f1f1f1;display: flex;justify-content: center;">
+            <img  src="../assets/logo.svg" style="width: 50%;height: auto;align-self: center;" alt="">
         </div>
         <div style="flex: 1;display: flex; flex-direction: column;justify-content: center;">
             <h1 style="color: black;word-spacing: 8px;align-self: center;padding-bottom: 10vh;">Signup to <strong> SARC </strong> services</h1>
@@ -49,6 +49,9 @@
 </style>
 
 <script>
+
+import { EventBus } from "../eventBus"
+
 export default {
     name: 'signup',
     components: {},
@@ -75,7 +78,10 @@ export default {
                             role: 'user'
                         }
                         vm.$http.post('https://sarc-bphc-backend.herokuapp.com/api/auth/signup', post_json).then(resp => {
-                            console.log(resp)
+                            if(resp.body.token) {
+                                localStorage.setItem('auth_token', resp.body.token)
+                                window.location.pathname = '/news'
+                            }
                         })
                     }
                 } else {

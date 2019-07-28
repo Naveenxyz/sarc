@@ -13,7 +13,7 @@
             <div class="ns_p_cont">
                 <div style="width: 2vw;"></div>
                 <div v-for="(s, i) in this.navItems" :key="i" class="ns_i_cont">
-                    <p class="" @click="$router.push(s.route)" :ref="s.ref">{{s.name}}</p>
+                    <p class="" @click="$router.push('/' +  s.route)" :ref="s.ref">{{s.name}}</p>
                 </div>
                 <img src="../assets/sort.svg" style="width: 20px; height: 20px;align-self: center;margin-left: auto;margin-right: 0px;cursor: pointer;" alt="">
                 <p style="padding-left: 10px;margin-left:0px;padding-right: 80px;">Sort</p>
@@ -183,13 +183,10 @@ export default {
     methods: {
         logger() {
             EventBus.$emit('sendNavbarHeight', this.$refs.navbar_root.clientHeight)
-            console.log(this.$refs.navbar_root.clientHeight)
         },
         search() {
             var vm = this
-            console.log(vm.search_input)
             this.$http.get('https://sarc-bphc-backend.herokuapp.com/api/home/search/' + vm.search_input).then(resp => {
-                console.log(resp)
                 EventBus.$emit('search_results', resp)
             })
         },

@@ -9,8 +9,8 @@
         <!-- <img  v-if="!this.loading" class="bg_svg" style="position: fixed;top:0px; right: 5vw;height: 100vh;width: 25vw;z-index:8;object-fit: cover;opacity: 1;" src="../assets/background.png" /> -->
         <navbar ref="navbar" style="position: fixed;z-index: 99"/>
         <div ref="main" style="z-index: 9;" class="main">
-            <div v-if="showSidebar && !this.loading" id="sidebar" class="sidebar" ref="sidebar" style="overflow: auto;background: transparent;">
-                <div style="display: flex;flex-direction: column;justify-content: flex-start;align-content: center;position: fixed;">
+            <div v-if="showSidebar && !this.loading" id="sidebar" class="sidebar" ref="sidebar" style="background: transparent;position: fixed;">
+                <div style="display: flex;flex-direction: column;justify-content: flex-start;align-content: center;overflow: auto;margin-right: 2vw; margin-bottom: 8vh;">
                     <div @click="getAllPosts(), resetBg()" ref="first_cat" class="bg_grey" style="display: flex; flex-direction: row; padding: 10px;border-radius: 10000px; margin-top: 20px;cursor:pointer;">
                         <div class="bg_yellow" style="width: 10px; height: 10px; border-radius: 50%;align-self: center;margin-left: 30px;"></div>
                         <p style="paddin: 0px;margin: 0px;color: black;font-size: 17px;padding-left: 20px;padding-right: 40px;">All Posts</p>
@@ -30,7 +30,7 @@
                 No Posts According Your Search Input 
             </p>
 
-            <div v-if="!this.loading && !this.p_loading" ref="posts_main" :class="{'no_overflow': !this.posts.length}" style="background: transparent;">
+            <div v-if="!this.loading && !this.p_loading" ref="posts_main" :class="{'no_overflow': !this.posts.length}" style="background: transparent;margin-left: auto;margin-right: 12vw;">
                 <div v-for="(sp, i) in this.posts" :ref="'post_' + i" :key="i" class="card_cont" style="background: transparent; margin-left: 5vw; margin-top: 50px;height: 60vh;width: 60vw;">
                     <img @click="$router.push('/post/' + sp.id)" class="card_img" :src="sp.image" style="width: 60vw; height: 60vh;object-fit: cover;z-index: 3;border-radius: 15px;cursor: pointer;" alt="">
                     <div class="card_text_cont" style="background: #eeeeee;height: auto;min-height: 20%; width: 100%;z-index: 9;transform: translateY(-18vh);display: flex; flex-direction: row;">
@@ -43,7 +43,7 @@
                         <img v-if="sp.star" src="../assets/star_alt.svg" style="width: 25px; height: 25px;align-self: flex-end;margin-bottom: 20px;margin-left: auto;margin-right: 30px;cursor: pointer;" alt="">
                         <img v-if="!sp.bucket" src="../assets/bucket.svg" style="width: 20px; height: 20px;align-self: flex-end;margin-bottom: 20px;margin-right: 30px;cursor: pointer;" alt="">
                         <img v-if="sp.bucket" src="../assets/bucket_alt.svg" style="width: 20px; height: 20px;align-self: flex-end;margin-bottom: 20px;margin-right: 30px;cursor: pointer;" alt="">
-                        <img src="../assets/pointer.svg" style="width: 20px; height: 20px;align-self: flex-end;margin-bottom: 20px;margin-right: 30px;cursor: pointer;" alt="">
+                        <img src="../assets/pointer.svg" @click="$router.push('/post/' + sp.id)" style="width: 20px; height: 20px;align-self: flex-end;margin-bottom: 20px;margin-right: 30px;cursor: pointer;" alt="">
                     </div> 
                 </div>
             </div>
@@ -72,8 +72,9 @@
     }
 
     .sidebar {
-        height: auto;
         margin-top: 50px;
+        height: 80vh;
+        overflow: auto;
         width: auto;
         min-width: 18vw;
         max-width: 40vw;
@@ -87,8 +88,6 @@
         flex-direction: row;
         position: relative;
         width: 100vw;
-        /* reduced width so that side background can be made visible */
-        /* width: 100vw; */
         margin: 0px;
         padding: 0px;
         margin-top: 150px;
@@ -165,18 +164,24 @@
 
     @-webkit-keyframes rotator {
         0% {
-            transform: rotate(0deg)
+            transform: rotate(0deg) scale(0.8)
+        }
+        50% {
+            transform: rotate(180deg) scale(1)
         }
         100% {
-            transform: rotate(360deg)
+            transform: rotate(360deg) scale(0.8)
         }
     }
     @keyframes rotator {
         0% {
-            transform: rotate(0deg)
+            transform: rotate(0deg) scale(0.8)
+        }
+        50% {
+            transform: rotate(180deg) scale(1)
         }
         100% {
-            transform: rotate(360deg)
+            transform: rotate(360deg) scale(0.8)
         }
     }
 

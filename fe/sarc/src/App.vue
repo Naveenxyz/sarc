@@ -15,7 +15,8 @@ export default {
   },
   data () {
     return {
-      socket: io("https://sarc-bphc-backend.herokuapp.com/"),
+      token: localStorage.getItem('auth_token'),
+      socket: io("https://sarc-bphc-backend.herokuapp.com/", {query: {token : localStorage.getItem('auth_token')}}),
     }
   },
   mounted: function () {
@@ -27,8 +28,6 @@ export default {
       var vm = this
       this.socket.emit('posts', 'userid')
       this.socket.on('posts_resp', data => {
-        console.log('sock data')
-        console.log(data)
         vm.setEventBus('getPost', data)
       })
       this.socket.emit('categories', 'userid')

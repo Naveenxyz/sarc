@@ -47,6 +47,9 @@
 </style>
 
 <script>
+
+import { EventBus } from "../eventBus"
+
 export default {
     name: 'login',
     components: {},
@@ -70,6 +73,10 @@ export default {
                     }
                     vm.$http.post('https://sarc-bphc-backend.herokuapp.com/api/auth/login', post_json).then(resp => {
                         console.log(resp)
+                        if(resp.body.token) {
+                            localStorage.setItem('auth_token', resp.body.token)
+                            window.location.pathname = '/news'
+                        }
                     })
                 }
             }else {

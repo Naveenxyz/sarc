@@ -3,27 +3,31 @@
         <navbar style="position: fixed;" />
         <div class="main">
             <div style="width: 100vw;position: relative;margin-top: 0px;background: transparent;height: auto;" class="top_img">
-                <img :src="this.image" style="width: 100vw; height: auto;max-height: 60vh;object-fit: fit;" alt="">
+                <img :src="this.image" style="width: 100vw; height: auto;max-height: 90vh;object-fit: fit;" alt="">
+                <div @click="$router.push('/news')" style="position: absolute;top: 20vh; left: 20px;width: 40px;height: 40px; border-radius: 50%;background: white;display: flex; flex-direction : column;cursor: pointer;box-shadow: 0 0 30px 0px rgba(0, 0, 0, 0.55);">
+                    <img src="../assets/pointer_alt_left.png" style="width: 15px; height: 20px;align-self: center;margin-top: auto;margin-bottom: auto;" alt="">
+                </div>
                 <div class="top_items" style="display: flex; flex-direction: row;margin-top: 40px;">
                     <div style="display: flex; flex-direction:column;align-self: center;">
                         <p style="font-size: 24px;font-weight: 900;color: black;padding: 0px;margin: 0px;padding-left: 5vw;text-align: left;">{{ this.title }}</p>
                         <p style="font-size: 17px;font-weight: 400;color: #9E9E9E;padding: 0px;margin: 0px;padding-left: calc(5vw);padding-top: 10px;text-align: left;">{{ this.description }}</p>
                     </div>
                     <div style="margin-left: auto;margin-right: 40px;display: flex; flex-direction: row;align-self: center;">
-                        <button style="padding: 20px;font-size: 17px;color:white; background: #E34848;padding-left: 40px;padding-right: 40px;border-radius: 100000px;align-self: center;cursor: pointer;">Connect With Student</button>
+                        <button style="all: unset;padding: 20px;font-size: 17px;color:white; background: #E34848;padding-left: 40px;padding-right: 40px;border-radius: 100000px;align-self: center;cursor: pointer;box-shadow: 5px 5px 7px 0px rgba(0, 0, 0, 0.15);">Connect With Student</button>
                         <img src="../assets/bucket.svg" style="width: 30px; height: 30px;align-self: center;margin-left: 30px;cursor: pointer;" alt="">
                         <img src="../assets/star.svg" style="width: 30px; height: 30px;align-self: center;margin-left: 30px;cursor: pointer;" alt="">
                     </div>
                 </div>
-                <div class="main_text" style="margin-top: 10vh;position: relative;width: 100vw;">
+                <!-- <div class="main_text" style="margin-top: 10vh;position: relative;width: 100vw;">
                     <span style="white-space: pre;text-align: left;">
                         {{ this.bodyText }}
                     </span>
-                </div>
+                </div> -->
+                <pre style="line-height: 22px;font-size: 16px;font-family: 'Quicksand'; padding: 70px; white-space: pre-wrap;text-align: left;">{{ this.bodyText }}</pre>
                 <div class="comments_section" style="margin-top: 10vh;margin-bottom: 10vh;text-align: left;margin-left: 5vw;">
                     <p style="font-weight: 900;color: black;font-size: 22px;padding: 0px; margin: 0px;text-align: left;">Comments</p> <br> <br>
                     <textarea class="comment_input" name="Comment" ref="comment_input" placeholder="What are your thoughts ??"></textarea> <br>
-                    <button style="padding: 15px;background: #E34848;color: white;font-weight: 500;font-size: 18px; margin-top: 20px;cursor: pointer;">Comment</button>
+                    <button style="padding: 15px;background: #E34848;color: white;font-weight: 500;font-size: 18px; margin-top: 20px;cursor: pointer;border-radius: 100000px;padding-left: 30px; padding-right: 30px;">Comment</button>
                     <div class="main_comments">
                         <div v-for="(sc, i) in this.comments" :key="i" class="single_comment_cont" style="display: flex;margin-top: 7vh;margin-bottom: 7vh;">
                             <div style="width: 50px; height: 50px;margin-right: 25px;">

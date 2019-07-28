@@ -1,0 +1,29 @@
+(node:22613) [DEP0005] DeprecationWarning: Buffer() is deprecated due to security and usability issues. Please use the Buffer.alloc(), Buffer.allocUnsafe(), or Buffer.from() methods instead.
+[1m[38;2;0;143;191mINFO  [0m[1mcode-server v1.1156-vsc1.33.1
+[1m[38;2;0;143;191mINFO  [0mAdditional documentation: http://github.com/cdr/code-server
+[1m[38;2;0;143;191mINFO  [0mInitializing[38;2;140;140;140m {"data-dir":"/home/naveen/.local/share/code-server","extensions-dir":"/home/naveen/.local/share/code-server/extensions","working-dir":"/home/naveen/Desktop/sarc","log-dir":"/home/naveen/.cache/code-server/logs/20190624105909968"}
+[1m[38;2;0;143;191mINFO  [0mStarting webserver...[38;2;140;140;140m {"host":"0.0.0.0","port":8443}
+[1m[38;2;255;157;0mWARN  [0mNo certificate specified. [1mThis could be insecure.
+[1m[38;2;255;157;0mWARN  [0mDocumentation on securing your setup: https://github.com/cdr/code-server/blob/master/doc/security/ssl.md
+[1m[38;2;0;143;191mINFO  [0m 
+[1m[38;2;0;143;191mINFO  [0mPassword:[1m 608340d27bd9937b0d6a56ed
+[1m[38;2;0;143;191mINFO  [0m 
+[1m[38;2;0;143;191mINFO  [0mStarted (click the link below to open):
+[1m[38;2;0;143;191mINFO  [0mhttps://localhost:8443/
+[1m[38;2;0;143;191mINFO  [0m 
+[1m[38;2;176;0;0mERROR [0mPort [1m8443[0m is in use. Please free up port 8443 or specify a different port with the -p flag
+(node:22842) [DEP0005] DeprecationWarning: Buffer() is deprecated due to security and usability issues. Please use the Buffer.alloc(), Buffer.allocUnsafe(), or Buffer.from() methods instead.
+[1m[38;2;0;143;191mINFO  [0m[1mcode-server v1.1156-vsc1.33.1
+[1m[38;2;0;143;191mINFO  [0mAdditional documentation: http://github.com/cdr/code-server
+[1m[38;2;0;143;191mINFO  [0mInitializing[38;2;140;140;140m {"data-dir":"/home/naveen/.local/share/code-server","extensions-dir":"/home/naveen/.local/share/code-server/extensions","working-dir":"/home/naveen/Desktop/sarc","log-dir":"/home/naveen/.cache/code-server/logs/20190624110127475"}
+[1m[38;2;255;157;0mWARN  [0m"--password" is deprecated. Use the PASSWORD environment variable instead.
+[1m[38;2;0;143;191mINFO  [0mStarting webserver...[38;2;140;140;140m {"host":"0.0.0.0","port":8443}
+[1m[38;2;255;157;0mWARN  [0mNo certificate specified. [1mThis could be insecure.
+[1m[38;2;255;157;0mWARN  [0mDocumentation on securing your setup: https://github.com/cdr/code-server/blob/master/doc/security/ssl.md
+[1m[38;2;0;143;191mINFO  [0m 
+[1m[38;2;0;143;191mINFO  [0mUsing custom password.
+[1m[38;2;0;143;191mINFO  [0m 
+[1m[38;2;0;143;191mINFO  [0mStarted (click the link below to open):
+[1m[38;2;0;143;191mINFO  [0mhttps://localhost:8443/
+[1m[38;2;0;143;191mINFO  [0m 
+[1m[38;2;176;0;0mERROR [0mPort [1m8443[0m is in use. Please free up port 8443 or specify a different port with the -p flag

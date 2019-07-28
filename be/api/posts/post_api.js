@@ -1,14 +1,16 @@
 const express = require('express');
 const router = express.Router();
 let mongoose = require('mongoose')
+const jwt = require('jsonwebtoken')
 // let oid=mongoose.ObjectId
 const timestamp = require('mongoose-timestamp')
 const server = '127.0.0.1:27017'
 const database = 'sarc'
-mongoose.connect("mongodb+srv://naveen:pass123@sarcdb-6vxmj.mongodb.net/test?retryWrites=true&w=majority", {
+mongoose.connect("mongodb+srv://naveen:pass123@sarcdb-6vxmj.mongodb.net/sarc?retryWrites=true&w=majority", {
     useNewUrlParser: true
 });
 const postmodel = require('../../models/posts/post_model')
+const tagmodel = require('../../models/tags/tags_schmea.js')
 // const postmodel = mongoose.model('posts')
 var connection = mongoose.connection
 // connection.once('open',()=>{
@@ -20,15 +22,21 @@ var connection = mongoose.connection
 //         })
 //     });
 // })
-router.post('/posts', (req, res) => {
+router.post('/posts',verifytoken, (req, res) => {
+    jwt.verify(req.token,'thisisthesecretkeyusedtoverifythejwtinsarcwebsite',(err,authdata)=>{
+        if(err){
+            res.send("no")
+            // res.sendStatus(403)
+        }
+    })
     if (!req.body) {
         return res.status(400).send('Request body is missing')
     }
     let model = new postmodel(req.body)
     console.log(req.body)
-    model.stars=0
-    model.stared=false
-    model.bucket=false
+    model.stars=[]
+    // model.stared=false
+    model.bucket=[]
     model.id=model._id
     model.save()
         .then(doc => {
@@ -42,7 +50,13 @@ router.post('/posts', (req, res) => {
             res.status(500).json(err)
         })
 })
-router.get('/posts', (req, res) => {
+router.get('/posts',verifytoken,(req, res) => {
+    jwt.verify(req.token,'thisisthesecretkeyusedtoverifythejwtinsarcwebsite',(err,authdata)=>{
+        if(err){
+            res.send("no")
+            // res.sendStatus(403)
+        }
+    })
     console.log("get req")
     postmodel.find({})
         .then(doc => {
@@ -66,15 +80,44 @@ router.get('/posts/:id', (req, res) => {
             res.status(500).json(err)
         })
 })
+router.post('/new_categorie',(req,res)=>{
+    console.log(req.body)
+    tagmodel.find({
+        name:'alltags'
+    })
+    .then(resp=>{
+        console.log(resp)
+        resp[0].categories.push(req.body.new)
+        res.send(resp[0])
+        resp[0].save()
+    })
+    .catch(err => {
+        res.status(500).json(err)
+    })
+})
+router.post('/categories',(req,res)=>{
+    console.log(req.body)
+    let model = new tagmodel(req.body)
+    // console.log('requested catogeries')
+    model.save()
+    .then(doc=>{
+        console.log(doc)
+        res.json(doc)
+    })
+    .catch(err => {
+        res.status(500).json(err)
+    })
+})
 router.get('/categories',(req,res)=>{
     // console.log('requested catogeries')
-    connection.db.collection("tags", function(err, collection){
-                collection.find().toArray(function(err, data){
-                    // console.log(data);
-                    res.json(data)
-                })
-                
-            });
+    tagmodel.find({})
+    .then(doc=>{
+        console.log(doc)
+        res.json(doc)
+    })
+    .catch(err => {
+        res.status(500).json(err)
+    })
 })
 router.get('/categories/:cat',(req,res)=>{
     console.log('requested '+req.params.cat+" via get")
@@ -98,4 +141,16 @@ router.get('/search/:key', function(req,res){
         res.json(docs)
     });
 });
+function verifytoken(req,res,next){
+    const bearer_header = req.headers['authorization']
+    if(typeof(bearer_header)!= 'undefined'){
+        const bearer = bearer_header.split(' ')
+        const bearertoken = bearer[1]
+        req.token = bearertoken
+        next()
+    }else{
+        res.json({"response":"no"})
+    }
+}
+
 module.exports = router;

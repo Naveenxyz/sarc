@@ -18,6 +18,11 @@ app.use(
         extended: false
     })
 );
+app.use("/api/auth",require("./api/auth/auth"))
+app.use("/api/home",require("./api/posts/post_api"))
+app.get("/", (req, res) => {
+    res.sendFile(__dirname + "/index.html");
+})
 
 // for json web token
 app.get('/test',(req,res)=>{
@@ -27,6 +32,7 @@ res.json({
 }
 )
 app.post('/test',verifytoken,(req,res)=>{
+    console.log(req.token)
     jwt.verify(req.token,'secretkey',(err,authdata)=>{
         if(err){
             res.sendStatus(403)
@@ -99,16 +105,25 @@ function verifytoken(req,res,next){
 
 
 
-app.use("/api/home",require("./api/posts/post_api"))
-app.get("/", (req, res) => {
-    res.sendFile(__dirname + "/index.html");
-})
-app.get("/:id2/:id1",(req,res)=>{
-    res.send(req.params.id2+req.params.id1)
-})
-app.use("/api/auth",require("./api/auth/auth"))
+// app.get("/:id2/:id1",(req,res)=>{
+//     res.send(req.params.id2+req.params.id1)
+// })
+
 // io.use(console.error("hello world"))
+// io.use(function(socket, next){
+//     if (socket.handshake.query && socket.handshake.query.token){
+//       jwt.verify(socket.handshake.query.token, 'thisisthesecretkeyusedtoverifythejwtinsarcwebsite', function(err, decoded) {
+//         if(err) return next(new Error('Authentication error'));
+//         socket.decoded = decoded;
+//         next();
+//       });
+//     } else {
+//         next(new Error('Authentication error'));
+//     }    
+// })
+
 io.use(function(socket, next){
+    console.log("something")
     if (socket.handshake.query && socket.handshake.query.token){
       jwt.verify(socket.handshake.query.token, 'thisisthesecretkeyusedtoverifythejwtinsarcwebsite', function(err, decoded) {
         if(err) return next(new Error('Authentication error'));
@@ -118,11 +133,9 @@ io.use(function(socket, next){
     } else {
         next(new Error('Authentication error'));
     }    
-})
-io.on('connection', function(socket){
-    console.log(io.sockets.connected())
-
-
+  })
+.on('connection', function(socket){
+    // console.log(io.sockets.connected())
     console.log(`a user connected ${socket.id}`);
     socket.on('disconnect', function(){
         console.log(`user disconnected `);

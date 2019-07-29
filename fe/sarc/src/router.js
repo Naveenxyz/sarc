@@ -33,14 +33,14 @@ export default new Router({
             beforeEnter: (to, from, next) => {
                 var auth_token = localStorage.getItem('auth_token')
                 if (auth_token) {
-                    next()
                     Vue.http.headers.common['Authorization'] = 'Bearer ' +  auth_token
                     Vue.http.get('https://sarc-bphc-backend.herokuapp.com/api/auth').then( resp => {
                         if (resp) {
-                            next()
                             console.log(resp)
                             if (resp.body == 'no') {
                                 next({path: 'login'})
+                            } else{
+                                next()
                             }
                         }else {
                             next({path: 'login'})
@@ -57,13 +57,16 @@ export default new Router({
             component: bucket,
             beforeEnter: (to, from, next) => {
                 var auth_token = localStorage.getItem('auth_token')
-                console.log(auth_token)
                 if (auth_token) {
-                    next()
                     Vue.http.headers.common['Authorization'] = 'Bearer ' +  auth_token
                     Vue.http.get('https://sarc-bphc-backend.herokuapp.com/api/auth').then( resp => {
                         if (resp) {
-                            next()
+                            console.log(resp)
+                            if (resp.body == 'no') {
+                                next({path: 'login'})
+                            } else{
+                                next()
+                            }
                         }else {
                             next({path: 'login'})
                         }
@@ -77,16 +80,76 @@ export default new Router({
             path: '/contact',
             name: 'contact',
             component: contact,
+            beforeEnter: (to, from, next) => {
+                var auth_token = localStorage.getItem('auth_token')
+                if (auth_token) {
+                    Vue.http.headers.common['Authorization'] = 'Bearer ' +  auth_token
+                    Vue.http.get('https://sarc-bphc-backend.herokuapp.com/api/auth').then( resp => {
+                        if (resp) {
+                            console.log(resp)
+                            if (resp.body == 'no') {
+                                next({path: 'login'})
+                            } else{
+                                next()
+                            }
+                        }else {
+                            next({path: 'login'})
+                        }
+                    })
+                } else {
+                    next({path: 'login'})
+                }
+            }
         },
         {
             path: '/idea_hub',
             name: 'idea_hub',
             component: ideahub,
+            beforeEnter: (to, from, next) => {
+                var auth_token = localStorage.getItem('auth_token')
+                if (auth_token) {
+                    Vue.http.headers.common['Authorization'] = 'Bearer ' +  auth_token
+                    Vue.http.get('https://sarc-bphc-backend.herokuapp.com/api/auth').then( resp => {
+                        if (resp) {
+                            console.log(resp)
+                            if (resp.body == 'no') {
+                                next({path: 'login'})
+                            } else{
+                                next()
+                            }
+                        }else {
+                            next({path: 'login'})
+                        }
+                    })
+                } else {
+                    next({path: 'login'})
+                }
+            }
         },
         {
             path: '/post/:id', 
             component: post,
-            name: 'post'
+            name: 'post',
+            beforeEnter: (to, from, next) => {
+                var auth_token = localStorage.getItem('auth_token')
+                if (auth_token) {
+                    Vue.http.headers.common['Authorization'] = 'Bearer ' +  auth_token
+                    Vue.http.get('https://sarc-bphc-backend.herokuapp.com/api/auth').then( resp => {
+                        if (resp) {
+                            console.log(resp)
+                            if (resp.body == 'no') {
+                                next({path: 'login'})
+                            } else{
+                                next()
+                            }
+                        }else {
+                            next({path: 'login'})
+                        }
+                    })
+                } else {
+                    next({path: 'login'})
+                }
+            }
         },
         {
             path: '/login', 
@@ -101,12 +164,56 @@ export default new Router({
         {
             path: '/admin', 
             component: admin,
-            name: 'admin'
+            name: 'admin',
+            beforeEnter: (to, from, next) => {
+                var auth_token = localStorage.getItem('auth_token')
+                if (auth_token) {
+                    Vue.http.headers.common['Authorization'] = 'Bearer ' +  auth_token
+                    Vue.http.get('https://sarc-bphc-backend.herokuapp.com/api/auth').then( resp => {
+                        if (resp) {
+                            console.log(resp)
+                            if (resp.body == 'no') {
+                                next({path: 'login'})
+                            } else{
+                                if(resp.body.authdata.user.role == 'admin'){
+                                    next()
+                                } else {
+                                    next({path: 'news'})
+                                }
+                            }
+                        }else {
+                            next({path: 'login'})
+                        }
+                    })
+                } else {
+                    next({path: 'login'})
+                }
+            }
         },
         {
             path: '/mentor_hub', 
             component: alumni,
-            name: 'mentor_hub'
+            name: 'mentor_hub',
+            beforeEnter: (to, from, next) => {
+                var auth_token = localStorage.getItem('auth_token')
+                if (auth_token) {
+                    Vue.http.headers.common['Authorization'] = 'Bearer ' +  auth_token
+                    Vue.http.get('https://sarc-bphc-backend.herokuapp.com/api/auth').then( resp => {
+                        if (resp) {
+                            console.log(resp)
+                            if (resp.body == 'no') {
+                                next({path: 'login'})
+                            } else{
+                                next()
+                            }
+                        }else {
+                            next({path: 'login'})
+                        }
+                    })
+                } else {
+                    next({path: 'login'})
+                }
+            }
         },
         {
             path: '/test', 

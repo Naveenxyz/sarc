@@ -12,6 +12,8 @@
 <script>
 
 import navbar from '../components/navbar.vue'
+import { EventBus } from '../../../../../../sip-bphc/hash/frontend/hash/src/eventbus';
+
 
 export default {
     name: 'bucket',
@@ -20,11 +22,20 @@ export default {
 
         }
     },
-    mounted: function () {},
+    mounted: function () {
+        this.listenToEventBus()
+    },
     components: {
         navbar
     },
-    methods: {},
+    methods: {
+        listenToEventBus () {
+            var vm = this
+            EventBus.$on("comment", commentData => {
+                alert('yo')
+            });
+        },
+    },
 
 }
 </script>

@@ -21,7 +21,7 @@
                 <pre style="line-height: 22px;font-size: 16px;font-family: 'Quicksand'; padding: 70px; white-space: pre-wrap;text-align: left;">{{ this.bodyText }}</pre>
                 <div class="comments_section" style="margin-top: 10vh;margin-bottom: 10vh;text-align: left;margin-left: 5vw;">
                     <p style="font-weight: 900;color: black;font-size: 22px;padding: 0px; margin: 0px;text-align: left;">Comments</p> <br> <br>
-                    <textarea class="comment_input" name="Comment" ref="comment_input" placeholder="What are your thoughts ??"></textarea> <br>
+                    <textarea class="comment_input" name="Comment" v-model="comment_input" ref="comment_input" placeholder="What are your thoughts ??"></textarea> <br>
                     <button @click="this.send_comment" style="padding: 15px;background: #E34848;color: white;font-weight: 500;font-size: 18px; margin-top: 20px;cursor: pointer;border-radius: 100000px;padding-left: 30px; padding-right: 30px;">Comment</button>
                     <div class="main_comments">
                         <div v-for="(sc, i) in this.comments" :key="i" class="single_comment_cont" style="display: flex;margin-top: 7vh;margin-bottom: 7vh;">
@@ -46,6 +46,7 @@
 <script>
 
 import navbar from '../components/navbar.vue'
+import { EventBus } from '../eventBus';
 
 export default {
     name: 'Post',
@@ -60,6 +61,7 @@ export default {
             bodyText: '',
             title: '',
             description: '',
+            comment_input: '',
             comments: [
                 {
                     name: 'Naveen Kumar',
@@ -95,6 +97,7 @@ export default {
         this.getData()
         this.initTextAutoSetHeight();
         this.TimeMaker()
+        this.listenToEventBus()
     },
     methods: {
         getData () {
@@ -171,15 +174,29 @@ export default {
             text.select();
             resize();
         },
+        listenEventBus() {
+            EventBus.$on("newComment", comment_resp => {
+                this.comments.push(comment_resp);
+            });
+        },
+        
         send_comment () {
-            var uname = ''
             this.$http.headers.common['Authorization'] = 'Bearer ' +  localStorage.getItem('auth_token')
+            var date = new Date
+            var time = date.getTime()
+            var vm = this
             this.$http.get('https://sarc-bphc-backend.herokuapp.com/api/auth').then( resp => {
-                if (resp) {
-                    console.log(resp)
-                    // alert(uname)
+                if (resp.body.authdata.user.username.length) {
+                    EventBus.$emit("comment", {
+                        comment: vm.comment_input,
+                        sender: resp.body.authdata.user.username,
+                        time: time,
+                        id: vm.postID,
+                        img: 'https://firebasestorage.googleapis.com/v0/b/myownproject-7c0c9.appspot.com/o/images%2F3.jpg?alt=media&token=678d67d8-a874-4d2a-96fc-f0f0bb8c66ef'
+                    });
+                    this.comment_input = "";
                 }else {
-                    
+                    alert('no no')
                 }
             })
         }

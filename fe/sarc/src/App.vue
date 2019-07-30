@@ -34,6 +34,9 @@ export default {
       this.socket.on('categories_resp', rsp => {
         vm.setEventBus('get_categories', rsp.categories)
       })
+      this.socket.on("resp_comment", comment_resp => {
+        EventBus.$emit("newComment", comment_resp);
+      });
     },
     setEventBus (a, e) {
       EventBus.$emit(a, e)
@@ -43,7 +46,10 @@ export default {
       EventBus.$on('getPostData', resp => {
         vm.getSocketData()
       })
-    }
+      EventBus.$on("comment", commentData => {
+        vm.socket.emit("comment", commentData);
+      });
+    },
   }
 }
 </script>

@@ -35,6 +35,7 @@ export default {
         vm.setEventBus('get_categories', rsp.categories)
       })
       this.socket.on("resp_comment", comment_resp => {
+        console.log(comment_resp)
         EventBus.$emit("newComment", comment_resp);
       });
     },

@@ -63,12 +63,12 @@ export default {
             description: '',
             comment_input: '',
             comments: [
-                {
-                    name: 'Naveen Kumar',
-                    time: 1560719012235,
-                    comment: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aspernatur porro minima voluptate voluptatibus ea, accusantium fuga inventore accusamus exercitationem. Dignissimos?Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aspernatur porro minima voluptate voluptatibus ea, accusantium fuga inventore accusamus exercitationem. Dignissimos?Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aspernatur porro minima voluptate voluptatibus ea, accusantium fuga inventore accusamus exercitationem. Dignissimos?Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aspernatur porro minima voluptate voluptatibus ea, accusantium fuga inventore accusamus exercitationem. Dignissimos?Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aspernatur porro minima voluptate voluptatibus ea, accusantium fuga inventore accusamus exercitationem. Dignissimos?Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aspernatur porro minima voluptate voluptatibus ea, accusantium fuga inventore accusamus exercitationem. Dignissimos?',
-                    img: 'https://firebasestorage.googleapis.com/v0/b/myownproject-7c0c9.appspot.com/o/images%2F1.jpg?alt=media&token=9c0d59d9-9dd8-4ee9-976f-9f0567e28c43'
-                },
+                // {
+                //     name: 'Naveen Kumar',
+                //     time: 1560719012235,
+                //     comment: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aspernatur porro minima voluptate voluptatibus ea, accusantium fuga inventore accusamus exercitationem. Dignissimos?Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aspernatur porro minima voluptate voluptatibus ea, accusantium fuga inventore accusamus exercitationem. Dignissimos?Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aspernatur porro minima voluptate voluptatibus ea, accusantium fuga inventore accusamus exercitationem. Dignissimos?Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aspernatur porro minima voluptate voluptatibus ea, accusantium fuga inventore accusamus exercitationem. Dignissimos?Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aspernatur porro minima voluptate voluptatibus ea, accusantium fuga inventore accusamus exercitationem. Dignissimos?Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aspernatur porro minima voluptate voluptatibus ea, accusantium fuga inventore accusamus exercitationem. Dignissimos?',
+                //     img: 'https://firebasestorage.googleapis.com/v0/b/myownproject-7c0c9.appspot.com/o/images%2F1.jpg?alt=media&token=9c0d59d9-9dd8-4ee9-976f-9f0567e28c43'
+                // },
                 // {
                 //     name: 'Suraj Thotakura',
                 //     time: 1560709012235,
@@ -109,6 +109,8 @@ export default {
                 vm.description = res.body[0].description
                 vm.image = res.body[0].image
                 vm.bodyText = res.body[0].bodyText
+                vm.comments = res.body[0].comments
+                vm.TimeMaker()
            })
         },
         dateConverter (milliseconds) {
@@ -174,9 +176,11 @@ export default {
             text.select();
             resize();
         },
-        listenEventBus() {
+        listenToEventBus() {
+            var vm = this
             EventBus.$on("newComment", comment_resp => {
-                this.comments.push(comment_resp);
+                vm.comments.push(comment_resp)
+                vm.TimeMaker()
             });
         },
         
@@ -189,7 +193,7 @@ export default {
                 if (resp.body.authdata.user.username.length) {
                     EventBus.$emit("comment", {
                         comment: vm.comment_input,
-                        sender: resp.body.authdata.user.username,
+                        name: resp.body.authdata.user.username,
                         time: time,
                         id: vm.postID,
                         img: 'https://firebasestorage.googleapis.com/v0/b/myownproject-7c0c9.appspot.com/o/images%2F3.jpg?alt=media&token=678d67d8-a874-4d2a-96fc-f0f0bb8c66ef'

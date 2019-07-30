@@ -18,16 +18,11 @@
                         <img src="../assets/star.svg" style="width: 30px; height: 30px;align-self: center;margin-left: 30px;cursor: pointer;" alt="">
                     </div>
                 </div>
-                <!-- <div class="main_text" style="margin-top: 10vh;position: relative;width: 100vw;">
-                    <span style="white-space: pre;text-align: left;">
-                        {{ this.bodyText }}
-                    </span>
-                </div> -->
                 <pre style="line-height: 22px;font-size: 16px;font-family: 'Quicksand'; padding: 70px; white-space: pre-wrap;text-align: left;">{{ this.bodyText }}</pre>
                 <div class="comments_section" style="margin-top: 10vh;margin-bottom: 10vh;text-align: left;margin-left: 5vw;">
                     <p style="font-weight: 900;color: black;font-size: 22px;padding: 0px; margin: 0px;text-align: left;">Comments</p> <br> <br>
                     <textarea class="comment_input" name="Comment" ref="comment_input" placeholder="What are your thoughts ??"></textarea> <br>
-                    <button style="padding: 15px;background: #E34848;color: white;font-weight: 500;font-size: 18px; margin-top: 20px;cursor: pointer;border-radius: 100000px;padding-left: 30px; padding-right: 30px;">Comment</button>
+                    <button @click="this.send_comment" style="padding: 15px;background: #E34848;color: white;font-weight: 500;font-size: 18px; margin-top: 20px;cursor: pointer;border-radius: 100000px;padding-left: 30px; padding-right: 30px;">Comment</button>
                     <div class="main_comments">
                         <div v-for="(sc, i) in this.comments" :key="i" class="single_comment_cont" style="display: flex;margin-top: 7vh;margin-bottom: 7vh;">
                             <div style="width: 50px; height: 50px;margin-right: 25px;">
@@ -72,24 +67,24 @@ export default {
                     comment: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aspernatur porro minima voluptate voluptatibus ea, accusantium fuga inventore accusamus exercitationem. Dignissimos?Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aspernatur porro minima voluptate voluptatibus ea, accusantium fuga inventore accusamus exercitationem. Dignissimos?Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aspernatur porro minima voluptate voluptatibus ea, accusantium fuga inventore accusamus exercitationem. Dignissimos?Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aspernatur porro minima voluptate voluptatibus ea, accusantium fuga inventore accusamus exercitationem. Dignissimos?Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aspernatur porro minima voluptate voluptatibus ea, accusantium fuga inventore accusamus exercitationem. Dignissimos?Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aspernatur porro minima voluptate voluptatibus ea, accusantium fuga inventore accusamus exercitationem. Dignissimos?',
                     img: 'https://firebasestorage.googleapis.com/v0/b/myownproject-7c0c9.appspot.com/o/images%2F1.jpg?alt=media&token=9c0d59d9-9dd8-4ee9-976f-9f0567e28c43'
                 },
-                {
-                    name: 'Suraj Thotakura',
-                    time: 1560709012235,
-                    comment: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aspernatur porro minima voluptate voluptatibus ea, accusantium fuga inventore accusamus exercitationem. Dignissimos',
-                    img: 'https://firebasestorage.googleapis.com/v0/b/myownproject-7c0c9.appspot.com/o/images%2F2.jpg?alt=media&token=9ca13bd8-0f98-4049-ada8-c5c375140d05'
-                },
-                {
-                    name: 'Vamsi Krishna',
-                    time: 1560719112235,
-                    comment: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aspernatur porro minima voluptate voluptatibus ea, accusantium fuga inventore accusamus exercitationem. Dignissimos',
-                    img: 'https://firebasestorage.googleapis.com/v0/b/myownproject-7c0c9.appspot.com/o/images%2F3.jpg?alt=media&token=678d67d8-a874-4d2a-96fc-f0f0bb8c66ef'
-                },
-                {
-                    name: 'Jayakanth',
-                    time: 1559719002235,
-                    comment: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aspernatur porro minima voluptate voluptatibus ea, accusantium fuga inventore accusamus exercitationem. DignissimosLorem ipsum, dolor sit amet consectetur adipisicing elit. Aspernatur porro minima voluptate voluptatibus ea, accusantium fuga inventore accusamus exercitationem. Dignissimos',
-                    img: 'https://firebasestorage.googleapis.com/v0/b/myownproject-7c0c9.appspot.com/o/images%2F3.jpg?alt=media&token=678d67d8-a874-4d2a-96fc-f0f0bb8c66ef'
-                },
+                // {
+                //     name: 'Suraj Thotakura',
+                //     time: 1560709012235,
+                //     comment: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aspernatur porro minima voluptate voluptatibus ea, accusantium fuga inventore accusamus exercitationem. Dignissimos',
+                //     img: 'https://firebasestorage.googleapis.com/v0/b/myownproject-7c0c9.appspot.com/o/images%2F2.jpg?alt=media&token=9ca13bd8-0f98-4049-ada8-c5c375140d05'
+                // },
+                // {
+                //     name: 'Vamsi Krishna',
+                //     time: 1560719112235,
+                //     comment: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aspernatur porro minima voluptate voluptatibus ea, accusantium fuga inventore accusamus exercitationem. Dignissimos',
+                //     img: 'https://firebasestorage.googleapis.com/v0/b/myownproject-7c0c9.appspot.com/o/images%2F3.jpg?alt=media&token=678d67d8-a874-4d2a-96fc-f0f0bb8c66ef'
+                // },
+                // {
+                //     name: 'Jayakanth',
+                //     time: 1559719002235,
+                //     comment: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aspernatur porro minima voluptate voluptatibus ea, accusantium fuga inventore accusamus exercitationem. DignissimosLorem ipsum, dolor sit amet consectetur adipisicing elit. Aspernatur porro minima voluptate voluptatibus ea, accusantium fuga inventore accusamus exercitationem. Dignissimos',
+                //     img: 'https://firebasestorage.googleapis.com/v0/b/myownproject-7c0c9.appspot.com/o/images%2F3.jpg?alt=media&token=678d67d8-a874-4d2a-96fc-f0f0bb8c66ef'
+                // },
             ]
         }
     },
@@ -176,6 +171,18 @@ export default {
             text.select();
             resize();
         },
+        send_comment () {
+            var uname = ''
+            this.$http.headers.common['Authorization'] = 'Bearer ' +  localStorage.getItem('auth_token')
+            this.$http.get('https://sarc-bphc-backend.herokuapp.com/api/auth').then( resp => {
+                if (resp) {
+                    console.log(resp)
+                    // alert(uname)
+                }else {
+                    
+                }
+            })
+        }
     }
 }
 

@@ -39,10 +39,10 @@
                             <p style="font-weight: 900;font-size: 28px;color: black;padding: 0px;margin: 0px;text-align: left;padding-left: 40px;">{{ sp.title }}</p>
                             <p style="font-weight: 600; font-size: 18px; color: #9E9E9E;padding: 0px;margin: 0px;text-align: left;padding-top: 5px;padding-left: 40px;">{{ sp.description }}</p>
                         </div>
-                        <img v-if="!sp.star" src="../assets/star.svg" style="width: 20px; height: 20px;align-self: flex-end;margin-bottom: 20px;margin-left: auto;margin-right: 30px;cursor: pointer;" alt="">
-                        <img v-if="sp.star" src="../assets/star_alt.svg" style="width: 25px; height: 25px;align-self: flex-end;margin-bottom: 20px;margin-left: auto;margin-right: 30px;cursor: pointer;" alt="">
-                        <img v-if="!sp.bucket" src="../assets/bucket.svg" style="width: 20px; height: 20px;align-self: flex-end;margin-bottom: 20px;margin-right: 30px;cursor: pointer;" alt="">
-                        <img v-if="sp.bucket" src="../assets/bucket_alt.svg" style="width: 20px; height: 20px;align-self: flex-end;margin-bottom: 20px;margin-right: 30px;cursor: pointer;" alt="">
+                        <img v-if="!sp.stars.includes(userid)" @click="sendStar(sp.id, i)" src="../assets/star.svg" style="width: 20px; height: 20px;align-self: flex-end;margin-bottom: 20px;margin-left: auto;margin-right: 30px;cursor: pointer;" alt="">
+                        <img v-if="sp.stars.includes(userid)" @click="removeStar(sp.id, i)" src="../assets/star_alt.svg" style="width: 25px; height: 25px;align-self: flex-end;margin-bottom: 20px;margin-left: auto;margin-right: 30px;cursor: pointer;" alt="">
+                        <img v-if="!sp.bucket.includes(userid)" @click="sendBucket(sp.id, i)" src="../assets/bucket.svg" style="width: 20px; height: 20px;align-self: flex-end;margin-bottom: 20px;margin-right: 30px;cursor: pointer;" alt="">
+                        <img v-if="sp.bucket.includes(userid)" @click="removeBucket(sp.id, i)" src="../assets/bucket_alt.svg" style="width: 20px; height: 20px;align-self: flex-end;margin-bottom: 20px;margin-right: 30px;cursor: pointer;" alt="">
                         <img src="../assets/pointer.svg" @click="$router.push('/post/' + sp.id)" style="width: 20px; height: 20px;align-self: flex-end;margin-bottom: 20px;margin-right: 30px;cursor: pointer;" alt="">
                     </div> 
                 </div>
@@ -205,6 +205,7 @@ export default {
             modified_posts: [],
             p_loading: true,
             posts: [],
+            userid: '',
             categories: [],
             colors: [
                 '#E34848',
@@ -215,6 +216,7 @@ export default {
     },
     mounted: function () {
         this.getData()
+        this.getUserId()
         this.setBg(0)
         this.modified_posts = this.posts
         this.listenToEventBus()
@@ -236,6 +238,18 @@ export default {
                 vm.loading = false
                 vm.p_loading = false
                 vm.search_result_stat = false
+            })
+        },
+        setStar (e) {
+            var vm = this
+
+        },
+        getUserId () {
+            var vm = this
+            this.$http.get('https://sarc-bphc-backend.herokuapp.com/api/auth').then( resp => {
+                if (resp.body.authdata.user.username.length) {
+                    vm.userid = resp.body.authdata.user.username
+                }
             })
         },
         setBg (n) {
@@ -286,6 +300,24 @@ export default {
                 vm.search_result_stat = false
             })
         },
+        sendStar(e, i) {
+            EventBus.$emit('sendStar', e)
+            this.posts[i].stars.push(this.userid)
+        },
+        sendBucket (e, i) {
+            EventBus.$emit('sendBucket', e)
+            this.posts[i].bucket.push(this.userid)
+        },
+        removeStar (e, i) {
+            EventBus.$emit('sendStar', e)
+            var vm = this
+            this.posts[i].stars = this.posts[i].stars.filter(index => index !== vm.userid);
+        },
+        removeBucket (e, i) {
+            EventBus.$emit('sendBucket', e)
+            var vm = this
+            this.posts[i].bucket = this.posts[i].bucket.filter(index => index !== vm.userid);
+        }
     },
 
 }

@@ -36,7 +36,6 @@ export default new Router({
                     Vue.http.headers.common['Authorization'] = 'Bearer ' +  auth_token
                     Vue.http.get('https://sarc-bphc-backend.herokuapp.com/api/auth').then( resp => {
                         if (resp) {
-                            console.log(resp)
                             if (resp.body == 'no') {
                                 next({path: 'login'})
                             } else{
@@ -61,7 +60,6 @@ export default new Router({
                     Vue.http.headers.common['Authorization'] = 'Bearer ' +  auth_token
                     Vue.http.get('https://sarc-bphc-backend.herokuapp.com/api/auth').then( resp => {
                         if (resp) {
-                            console.log(resp)
                             if (resp.body == 'no') {
                                 next({path: 'login'})
                             } else{
@@ -86,7 +84,6 @@ export default new Router({
                     Vue.http.headers.common['Authorization'] = 'Bearer ' +  auth_token
                     Vue.http.get('https://sarc-bphc-backend.herokuapp.com/api/auth').then( resp => {
                         if (resp) {
-                            console.log(resp)
                             if (resp.body == 'no') {
                                 next({path: 'login'})
                             } else{
@@ -111,7 +108,6 @@ export default new Router({
                     Vue.http.headers.common['Authorization'] = 'Bearer ' +  auth_token
                     Vue.http.get('https://sarc-bphc-backend.herokuapp.com/api/auth').then( resp => {
                         if (resp) {
-                            console.log(resp)
                             if (resp.body == 'no') {
                                 next({path: 'login'})
                             } else{
@@ -136,7 +132,6 @@ export default new Router({
                     Vue.http.headers.common['Authorization'] = 'Bearer ' +  auth_token
                     Vue.http.get('https://sarc-bphc-backend.herokuapp.com/api/auth').then( resp => {
                         if (resp) {
-                            console.log(resp)
                             if (resp.body == 'no') {
                                 next({path: 'login'})
                             } else{
@@ -171,7 +166,6 @@ export default new Router({
                     Vue.http.headers.common['Authorization'] = 'Bearer ' +  auth_token
                     Vue.http.get('https://sarc-bphc-backend.herokuapp.com/api/auth').then( resp => {
                         if (resp) {
-                            console.log(resp)
                             if (resp.body == 'no') {
                                 next({path: 'login'})
                             } else{
@@ -200,7 +194,6 @@ export default new Router({
                     Vue.http.headers.common['Authorization'] = 'Bearer ' +  auth_token
                     Vue.http.get('https://sarc-bphc-backend.herokuapp.com/api/auth').then( resp => {
                         if (resp) {
-                            console.log(resp)
                             if (resp.body == 'no') {
                                 next({path: 'login'})
                             } else{

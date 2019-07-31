@@ -31,7 +31,7 @@
                             <div style="display: flex; flex-direction: column;align-self: center;">
                                 <div style="display: flex;flex-direction: row;margin: 0px; padding: 0px;align-self: flex-start;">
                                     <p style="font-size: 20px;padding-right: 20px;color: black;font-weight: 900;align-self: center;margin-top: 0px;">{{ sc.name }}</p>
-                                    <p style="font-size: 20px;padding-left: 0px;color: #777;font-weight: 900;align-self: center;margin-top: 0px;">{{ commentDueDates[i] }} ago</p>
+                                    <p style="font-size: 20px;padding-left: 0px;color: #777;font-weight: 900;align-self: center;margin-top: 0px;">{{ getTimeInSec(sc.time) }} ago</p>
                                 </div>
                                 <span style="padding: 0px;margin: 0px;align-self: flex-start;padding-right: 10vw;align-self: flex-start;white-space: pre-line;">{{ sc.comment }}</span>
                             </div>
@@ -96,7 +96,7 @@ export default {
     mounted: function () {
         this.getData()
         this.initTextAutoSetHeight();
-        this.TimeMaker()
+        // this.TimeMaker()
         this.listenToEventBus()
     },
     methods: {
@@ -110,7 +110,6 @@ export default {
                 vm.image = res.body[0].image
                 vm.bodyText = res.body[0].bodyText
                 vm.comments = res.body[0].comments
-                vm.TimeMaker()
            })
         },
         dateConverter (milliseconds) {
@@ -129,22 +128,20 @@ export default {
                 seconds: seconds
             }
         },
-        TimeMaker () {
+        getTimeInSec (a) {
             var vm = this
             var d = new Date
             var t = d.getTime()
-            for (let index = 0; index < vm.comments.length; index++) {
-                if ( vm.dateConverter(t - vm.comments[index].time).day ) {
-                    vm.commentDueDates.push(vm.dateConverter(t - vm.comments[index].time).day + ' days')
+            if ( vm.dateConverter(t - a).day ) {
+                return (vm.dateConverter(t - a).day + ' days')
+            } else {
+                if ( vm.dateConverter(t - a).hour ) {
+                    return (vm.dateConverter(t - a).hour + ' hours')
                 } else {
-                    if ( vm.dateConverter(t - vm.comments[index].time).hour ) {
-                        vm.commentDueDates.push(vm.dateConverter(t - vm.comments[index].time).hour + ' hours')
+                    if ( vm.dateConverter(t - a).minute ) {
+                        return (vm.dateConverter(t - a).minute + ' minutes')
                     } else {
-                        if ( vm.dateConverter(t - vm.comments[index].time).minute ) {
-                            vm.commentDueDates.push(vm.dateConverter(t - vm.comments[index].time).minute + ' minutes')
-                        } else {
-                            vm.commentDueDates.push(vm.dateConverter(t - vm.comments[index].time).seconds + ' seconds')
-                        }
+                        return (vm.dateConverter(t - a).seconds + ' seconds')
                     }
                 }
             }
@@ -180,7 +177,6 @@ export default {
             var vm = this
             EventBus.$on("newComment", comment_resp => {
                 vm.comments.push(comment_resp)
-                vm.TimeMaker()
             });
         },
         

@@ -16,31 +16,47 @@ export default {
   data () {
     return {
       token: localStorage.getItem('auth_token'),
+      userid: '',
       socket: io("https://sarc-bphc-backend.herokuapp.com/", {query: {token : localStorage.getItem('auth_token')}}),
     }
   },
   mounted: function () {
     this.getSocketData()
     this.listenToEventBus()
+    this.getUserId()
   },
   methods: {
     getSocketData () {
       var vm = this
       this.socket.emit('posts', 'userid')
       this.socket.on('posts_resp', data => {
+        console.log(data)
         vm.setEventBus('getPost', data)
       })
       this.socket.emit('categories', 'userid')
+      // this.socket.on('resp_stars', resp => {
+      //   EventBus.$emit('resp_stars', resp)
+      // })
+      // this.socket.on('resp_bucket', resp => {
+      // })
       this.socket.on('categories_resp', rsp => {
         vm.setEventBus('get_categories', rsp.categories)
       })
       this.socket.on("resp_comment", comment_resp => {
-        console.log(comment_resp)
         EventBus.$emit("newComment", comment_resp);
       });
     },
     setEventBus (a, e) {
       EventBus.$emit(a, e)
+    },
+    getUserId () {
+      var vm = this
+      this.$http.get('https://sarc-bphc-backend.herokuapp.com/api/auth').then( resp => {
+        if (resp.body.authdata.user.username.length) {
+            vm.userid = resp.body.authdata.user.username
+        }
+      })
+      EventBus.$emit('userId', vm.userid)
     },
     listenToEventBus () {
       var vm = this
@@ -50,6 +66,18 @@ export default {
       EventBus.$on("comment", commentData => {
         vm.socket.emit("comment", commentData);
       });
+      EventBus.$on('sendStar', resp => {
+        vm.socket.emit('stars', {
+          id: resp,
+          userid: vm.userid
+        })
+      })
+      EventBus.$on('sendBucket', resp => {
+        vm.socket.emit('bucket', {
+          id: resp,
+          userid: vm.userid
+        })
+      })
     },
   }
 }

@@ -153,24 +153,39 @@ export default {
                     route: 'news'
                 },
                 {
-                    name: 'IdeaHub',
-                    ref: 'idea_hub',
-                    route: 'idea_hub'
+                    name: 'Technical Clubs',
+                    ref: 'techclubs',
+                    route: 'techclubs'
+              },
+                {
+                    name: ' CIIE',
+                    ref: 'CIIE',
+                    route: 'CIIE'
                 },
                 {
-                    name: ' MyBucket',
-                    ref: 'bucket',
-                    route: 'bucket'
+                    name: ' Campus Events',
+                    ref: 'campusevents',
+                    route: 'campusevents'
+                },
+                {
+                    name: 'Alumini Events',
+                    ref: 'aluminievents',
+                    route: 'aluminievents'
+                },
+                {
+                    name: 'Social service',
+                    ref: 'socialservice',
+                    route: 'socialservice'
+                },
+                {
+                    name: 'Merchandise',
+                    ref: 'merchandise',
+                    route: 'merchandise'
                 },
                 {
                     name: 'Contact Us',
                     ref: 'contact',
                     route: 'contact'
-                },
-                {
-                    name: 'MentorHub',
-                    ref: 'mentor_hub',
-                    route: 'mentor_hub'
                 },
             ]
         }

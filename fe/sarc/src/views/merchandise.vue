@@ -2,7 +2,7 @@
 <template>
   <div class="page_body">
     <navbar />
-    <p style="font-family: 'Ultra', serif; font-size: 30px; font-weight: 900; color: #757575;">Order your your merchandise from here.</p>
+    <p style="font-family: 'Ultra', serif; font-size: 30px; font-weight: 900; color: #757575;">Order your merchandise from here.</p>
     <div class="new1">
       <input class="long" type="text" placeholder="Enter quantity you want">
       <button class="btn"><p style="font-size: 15px;">SUBMIT</p></button>

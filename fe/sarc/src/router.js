@@ -2,8 +2,12 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import contact from './views/contact.vue'
 import news from './views/news.vue'
-import bucket from './views/bucket.vue'
-import ideahub from './views/ideahub.vue'
+import techclubs from './views/techclubs.vue'
+import CIIE from './views/CIIE.vue'
+import campusevents from './views/campusevents.vue'
+import aluminievents from './views/aluminievents.vue'
+import socialservice from './views/socialservice.vue'
+import merchandise from './views/merchandise.vue'
 import post from './views/post.vue'
 import login from './views/login.vue'
 import signup from './views/signup.vue'
@@ -95,6 +99,150 @@ export default new Router({
                     })
                 } else {
                     next({path: 'login'})
+                }
+            }
+        },
+        {
+            path: '/Technical_Clubs',
+            name: 'Technical_Clubs',
+            component: techclubs,
+            beforeEnter: (to, from, next) => {
+                var auth_token = localStorage.getItem('auth_token')
+                if (auth_token) {
+                    Vue.http.headers.common['Authorization'] = 'Bearer ' + auth_token
+                    Vue.http.get('https://sarc-bphc-backend.herokuapp.com/api/auth').then(resp => {
+                        if (resp) {
+                            if (resp.body == 'no') {
+                                next({ path: 'login' })
+                            } else {
+                                next()
+                            }
+                        } else {
+                            next({ path: 'login' })
+                        }
+                    })
+                } else {
+                    next({ path: 'login' })
+                }
+            }
+        },
+        {
+            path: '/CIIE',
+            name: 'CIIE',
+            component: CIIE,
+            beforeEnter: (to, from, next) => {
+                var auth_token = localStorage.getItem('auth_token')
+                if (auth_token) {
+                    Vue.http.headers.common['Authorization'] = 'Bearer ' + auth_token
+                    Vue.http.get('https://sarc-bphc-backend.herokuapp.com/api/auth').then(resp => {
+                        if (resp) {
+                            if (resp.body == 'no') {
+                                next({ path: 'login' })
+                            } else {
+                                next()
+                            }
+                        } else {
+                            next({ path: 'login' })
+                        }
+                    })
+                } else {
+                    next({ path: 'login' })
+                }
+            }
+        },
+        {
+            path: '/Campus_Events',
+            name: 'Campus_Events',
+            component: campusevents,
+            beforeEnter: (to, from, next) => {
+                var auth_token = localStorage.getItem('auth_token')
+                if (auth_token) {
+                    Vue.http.headers.common['Authorization'] = 'Bearer ' + auth_token
+                    Vue.http.get('https://sarc-bphc-backend.herokuapp.com/api/auth').then(resp => {
+                        if (resp) {
+                            if (resp.body == 'no') {
+                                next({ path: 'login' })
+                            } else {
+                                next()
+                            }
+                        } else {
+                            next({ path: 'login' })
+                        }
+                    })
+                } else {
+                    next({ path: 'login' })
+                }
+            }
+        },
+        {
+            path: '/Alumini_Events',
+            name: 'Alumini_Events',
+            component: aluminievents,
+            beforeEnter: (to, from, next) => {
+                var auth_token = localStorage.getItem('auth_token')
+                if (auth_token) {
+                    Vue.http.headers.common['Authorization'] = 'Bearer ' + auth_token
+                    Vue.http.get('https://sarc-bphc-backend.herokuapp.com/api/auth').then(resp => {
+                        if (resp) {
+                            if (resp.body == 'no') {
+                                next({ path: 'login' })
+                            } else {
+                                next()
+                            }
+                        } else {
+                            next({ path: 'login' })
+                        }
+                    })
+                } else {
+                    next({ path: 'login' })
+                }
+            }
+        },
+        {
+            path: '/Social_service',
+            name: 'Social_service',
+            component: socialservice,
+            beforeEnter: (to, from, next) => {
+                var auth_token = localStorage.getItem('auth_token')
+                if (auth_token) {
+                    Vue.http.headers.common['Authorization'] = 'Bearer ' + auth_token
+                    Vue.http.get('https://sarc-bphc-backend.herokuapp.com/api/auth').then(resp => {
+                        if (resp) {
+                            if (resp.body == 'no') {
+                                next({ path: 'login' })
+                            } else {
+                                next()
+                            }
+                        } else {
+                            next({ path: 'login' })
+                        }
+                    })
+                } else {
+                    next({ path: 'login' })
+                }
+            }
+        },
+        {
+            path: '/Merchandise',
+            name: 'Merchandise',
+            component: merchandise,
+            beforeEnter: (to, from, next) => {
+                var auth_token = localStorage.getItem('auth_token')
+                if (auth_token) {
+                    Vue.http.headers.common['Authorization'] = 'Bearer ' + auth_token
+                    Vue.http.get('https://sarc-bphc-backend.herokuapp.com/api/auth').then(resp => {
+                        if (resp) {
+                            if (resp.body == 'no') {
+                                next({ path: 'login' })
+                            } else {
+                                next()
+                            }
+                        } else {
+                            next({ path: 'login' })
+                        }
+                    })
+                } else {
+                    next({ path: 'login' })
                 }
             }
         },

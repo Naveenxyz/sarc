@@ -7,6 +7,8 @@ A website to provide a platform for the alumni of BITS Pilani Hyderabad Campus t
 
 # Contributers:
 
-Naveen Kumar Bathula
-Vamsi Gottipati
-Suraj Thotakura
+* Naveen Kumar Bathula
+
+* Vamsi Gottipati
+
+* Suraj Thotakura

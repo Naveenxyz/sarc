@@ -1,6 +1,12 @@
-# sarc
+# Student Alumni Relations Cell
 Alumni Portal
 
-#info
+# About
 
-alumini portal 
+A website to provide a platform for the alumni of BITS Pilani Hyderabad Campus to keep up with our campus activities and student-initiatives
+
+# Contributers:
+
+Naveen Kumar Bathula
+Vamsi Gottipati
+Suraj Thotakura

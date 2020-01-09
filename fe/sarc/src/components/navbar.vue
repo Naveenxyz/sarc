@@ -4,7 +4,9 @@
             <img src="../assets/logo.svg" @click="$router.push('/home')" style="height: 6vh;width: auto;margin-left: 2vw;cursor: pointer;" alt="">
             <div style="margin-left: auto;margin-right: 2vw;align-self: center;">
                 <img v-if="this.showNavItem" src="../assets/search.svg" style="width: 18px; height: 18px;transform: translate(2.5vw, 2px);" alt="">
+                <multiselect v-model="selected" :multiple="true" :options="options">
                 <input v-if="this.showNavItem" class="search_box" @keyup.enter="search()" style="text-align: left; padding-left: calc(1vw + 45px)" type="text" placeholder="Search" ref="search_bar" v-model="search_input">
+                </multiselect>
                 <button v-if="this.showNavItem" @click="search()" class="btn-outline">Search</button>
                 <button @click="$router.push('/signup')" class="btn-outline">SignUp</button>
             </div>
@@ -135,15 +137,20 @@
 
 
 </style>
-
+<style src="vue-multiselect/dist/vue-multiselect.min.css">
 <script>
 
 import { EventBus } from '../eventBus.js'
+import Multiselect from 'vue-multiselect'
+
 
 export default {
     name: 'navbar',
+    components: {Multiselect},
     data () {
         return {
+            selected: null,
+            options: ['Physics', 'Mechanical', 'Machine Learning', 'Pharmacy', 'Civil','Chemical','Electronics','Artificial Intelligence','Biotechnology'],
             search_input: '',
             showNavItem: true,
             navItems: [

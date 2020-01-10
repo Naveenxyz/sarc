@@ -137,7 +137,7 @@
 
 
 </style>
-<style src="vue-multiselect/dist/vue-multiselect.min.css">
+
 <script>
 
 import { EventBus } from '../eventBus.js'
@@ -175,7 +175,7 @@ export default {
                     route: 'campusevents'
                 },
                 {
-                    name: 'Alumini Events',
+                    name: 'Alumni Events',
                     ref: 'aluminievents',
                     route: 'aluminievents'
                 },
@@ -232,3 +232,4 @@ export default {
     }
 }
 </script>
+<style src="vue-multiselect/dist/vue-multiselect.min.css">
